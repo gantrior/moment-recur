@@ -25,6 +25,7 @@
   },
   "scripts": {
     "test": "gulp test",
+    "karma": "karma start",
     "preinstall": "npm install bower gulp",
     "postinstall": "bower install"
   }

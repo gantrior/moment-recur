@@ -443,11 +443,19 @@
         // Recur Object Constrcutor
         var Recur = function(options) {
             if (options.start) {
-                this.start = moment(options.start).dateOnly();
+                if (typeof options.start === 'string' || options.start instanceof String) {
+                    this.start = moment(options.start, "L").dateOnly();
+                } else {
+                    this.start = moment(options.start).dateOnly();
+                }
             }
 
             if (options.end) {
-                this.end = moment(options.end).dateOnly();
+                if (typeof options.end === 'string' || options.end instanceof String) {
+                    this.end = moment(options.end, "L").dateOnly();
+                } else {
+                    this.end = moment(options.end).dateOnly();
+                }
             }
 
             // Our list of rules, all of which must match
@@ -564,7 +572,12 @@
 
         // Creates an exception date to prevent matches, even if rules match
         Recur.prototype.except = function(date) {
-            date = moment(date).dateOnly();
+            if (typeof date === 'string' || date instanceof String) {
+                date = moment(date, "L").dateOnly();
+            } else {
+                date = moment(date).dateOnly();
+            }
+            
             this.exceptions.push(date);
             return this;
         };
